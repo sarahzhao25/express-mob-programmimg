@@ -20,25 +20,28 @@ methods(if time):
 -hook increasing the number of visits, then console.logs for ex... "Chipotle has been visited 10 times"
 
 */ 
-var Restaurant = db.define("restaurant", {
-    name : {
+
+var Restaurant = db.define('Restaurant', {
+    name: {
         type: Sequelize.STRING,
         allowNull: false,
-        },
-    cusine: {
-        type: Sequelize.ENUM(["chinese", "indian", "american", "french", "mexican"]),
-        defaultValue: "chinese"
+    },
+    typeCuisine: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: false,
     },
     rating: {
         type: Sequelize.INTEGER,
         validate: {
-            min: 0,
-            max: 5
+            min: 1,
+            max: 5,
         }
+    },
+    visits: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     }
-    
 })
-
 
 /* Menu model
 -name
@@ -46,27 +49,25 @@ var Restaurant = db.define("restaurant", {
 -isSpicy(boolean)
  */
 
-
-var MenuItem = db.define("menu_item", {
+var Menu = db.define('Menu', {
     name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
     },
     calories: {
         type: Sequelize.INTEGER,
-        validate: {
-            min: 0
-        }
+        defaultValue: 0,
     },
     isSpicy: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        allowNull: false,
     }
 })
 
 
+
 //relationships
-MenuItem.belongsTo(Restaurant)
+Menu.belongsTo(Restaurant);
 
 module.exports = { db, Restaurant, MenuItem }
 //module.exports = { db : db, Restaurant: Restaurant, MenuItem: MenuItem }
