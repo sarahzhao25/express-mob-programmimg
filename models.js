@@ -41,6 +41,12 @@ var Restaurant = db.define('Restaurant', {
         type: Sequelize.INTEGER,
         defaultValue: 0
     }
+}, {
+    hooks: {
+        beforeValidate: (restaurant) => {
+            console.log(`${this.name} has been visited ${this.visits} times`);
+        }
+    }
 })
 
 /* Menu model
@@ -61,8 +67,19 @@ var Menu = db.define('Menu', {
     isSpicy: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-    }
+    },
+    
 })
+
+// Instance method
+Restaurant.prototype.describe = function () {
+    return `${this.name} serves ${this.typeCuisine} food`;
+}
+
+Restaurant.prototype.rate = function (num) {
+    this.rating = num;
+    return this.save();
+}
 
 
 

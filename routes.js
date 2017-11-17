@@ -7,7 +7,7 @@ const db = require('./models')
 
 
 
-db.Restaurant.findAll({})
+
 
 
 //basic get route to '/' w/ message
