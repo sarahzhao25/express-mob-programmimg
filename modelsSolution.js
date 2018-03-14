@@ -7,20 +7,9 @@ var db = new Sequelize('postgres://localhost:5432/restaurants', {
 
 /*Restaurant model. Include the following.....
 
-model: 
--name
--type of cuisine
--rating(out of 5 stars)
--# of visists with a default value of 0
 
-methods(bonus):
--describe : returns a string such as "Chipotle serves mexican food!"
--rate : gives restaurant a new rating
--findBest : returns all resturants with a rating greater or equal to 4
--hook increasing the number of visits, then console.logs for ex... "Chipotle has been visited 10 times"
-
-*/ 
-var Restaurant = db.define("restaurant", {
+*/
+var Restaurant = db.define('restaurant', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
@@ -63,20 +52,12 @@ Restaurant.findBest = function() { //Class Method
     })
 }
 
-Restaurant.hook("beforeValidate", function(restaurant){
-    restaurant.visits ++
+Restaurant.hook('beforeValidate', function(restaurant){
+    restaurant.visits++
     console.log(`${this.name} has been visited ${this.visits} times`)
 })
 
-
-/* Menu model
--name
--calories
--isSpicy(boolean)
- */
-
-
-var MenuItem = db.define("menu_item", {
+var MenuItem = db.define('menu_item', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
